@@ -1,6 +1,7 @@
 package pe.edu.cibertec.app_security_backoffice.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pe.edu.cibertec.app_security_backoffice.model.bd.Rol;
 import pe.edu.cibertec.app_security_backoffice.model.bd.Usuario;
@@ -26,10 +27,11 @@ public class UsuarioService implements IUsuarioService {
     }
     @Override
     public Usuario guardarUsuario(Usuario usuario) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         usuario.setActivo(true);
         Rol usuarioRol = rolRepository.findByNomrol("ADMIN");
         usuario.setRoles(new HashSet<>(Arrays.asList(usuarioRol)));
-        usuario.setPassword(randomPassword.generar(7));
+        usuario.setPassword(passwordEncoder.encode(randomPassword.generar(7)));
         return usuarioRepository.save(usuario);
     }
 
