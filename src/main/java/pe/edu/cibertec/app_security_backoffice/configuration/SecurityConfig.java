@@ -1,6 +1,7 @@
 package pe.edu.cibertec.app_security_backoffice.configuration;
 
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -17,6 +18,7 @@ import pe.edu.cibertec.app_security_backoffice.service.DetalleUsuarioService;
 public class SecurityConfig {
     private DetalleUsuarioService detalleUsuarioService;
 
+    @Bean
     public SecurityFilterChain config(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
@@ -24,8 +26,8 @@ public class SecurityConfig {
                                 auth.requestMatchers("/auth/login",
                                         "/resources/**",
                                         "/static/**",
-                                        "/styles/**",
-                                        "/scripts/**")
+                                        "/css/**",
+                                        "/js/**")
                                         .permitAll()
                                         .anyRequest()
                                         .authenticated()

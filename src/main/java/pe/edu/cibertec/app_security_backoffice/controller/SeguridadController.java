@@ -20,7 +20,7 @@ public class SeguridadController {
     public String frmMantUsuario(Model model){
         model.addAttribute("listaUsuarios",
                 usuarioService.listarUsuario());
-        return "seguridad/frmmantusuario";
+        return "seguridad/formusuario";
     }
     @PostMapping("/usuario")
     @ResponseBody
@@ -52,7 +52,7 @@ public class SeguridadController {
     public Usuario frmMantUsuario(@PathVariable("id") int id){
         return usuarioService.buscarUsuarioXIdUsuario(id);
     }
-    @GetMapping("/usuariosall")
+    @GetMapping("/usuario/lista")
     @ResponseBody
     public List<Usuario> listaUsuario(){
         return usuarioService.listarUsuario();
